@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom"
+import { UserContext } from "../contexts/UserContext"; 
 import axios from 'axios';
+
 
 function Users() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { setSelectedUser } = useContext(UserContext);
 
     useEffect(() => {
         //when page mounted
@@ -27,8 +30,8 @@ function Users() {
             <ul>
                 {users.map(user => (
                     <li key={user.id}>
-                        <Link to={`/users/${user.id}`}>
-                            {user.name} ({user.email})
+                        <Link to={`/users/${user.id}`} onClick={() => setSelectedUser(user)}>
+                            {user.name}
                         </Link>
                     </li>
                 ))}
